@@ -23,7 +23,7 @@ public class StubPlatformTransactionManager extends
 	public void reset() {
 		commit = rollback = total = 0;
 		rollbackOnly = false;
-		active=false;
+		active = false;
 	}
 
 	public int getCommit() {
@@ -42,7 +42,7 @@ public class StubPlatformTransactionManager extends
 	@Override
 	protected void doBegin(Object transaction, TransactionDefinition definition)
 			throws TransactionException {
-		active=true;
+		active = true;
 	}
 
 	@Override

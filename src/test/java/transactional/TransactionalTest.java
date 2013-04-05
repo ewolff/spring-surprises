@@ -1,8 +1,8 @@
 package transactional;
 
-import org.junit.After;
 import org.junit.Test;
 import org.springframework.test.context.transaction.AfterTransaction;
+import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -11,6 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 public class TransactionalTest extends AbstractTransactionTest {
+
+	@BeforeTransaction
+	public void setUp() {
+		platformTransactionManager.reset();
+	}
 
 	@Test
 	public void testRollsbackTransaction() {

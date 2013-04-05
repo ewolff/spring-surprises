@@ -1,14 +1,19 @@
 package transactional;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Like TransactionalTest But this time transactionalMethod() is not called
+ * Like NormalTest. But this time transactionalMethod() is not called
  * directly. Can you figure out why no tx handling takes place?
  */
-@Transactional
 public class Surprise extends AbstractTransactionTest {
+	
+	@Before
+	public void setUp() {
+		platformTransactionManager.reset();
+	}
+
 
 	@Test
 	public void transactionalMethodCommitsTransaction() {

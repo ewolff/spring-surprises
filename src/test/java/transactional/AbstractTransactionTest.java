@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.AfterTransaction;
 import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,20 +17,14 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/transactional.xml")
-@Transactional
 public abstract class AbstractTransactionTest {
 
 	@Autowired
-	private StubPlatformTransactionManager platformTransactionManager;
+	protected StubPlatformTransactionManager platformTransactionManager;
 	
 	@Autowired
 	protected TransactionalService transactionalService;
 	
-	@BeforeTransaction
-	public void setUp() {
-		platformTransactionManager.reset();
-	}
-
 	protected void assertCommitAndRollback(int commit, int rollback, int total) {
 		assertEquals("Commit", commit, platformTransactionManager.getCommit());
 		assertEquals("Rollback",rollback, platformTransactionManager.getRollback());
